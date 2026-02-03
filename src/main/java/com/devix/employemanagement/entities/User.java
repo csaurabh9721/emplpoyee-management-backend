@@ -1,5 +1,6 @@
 package com.devix.employemanagement.entities;
 
+import com.devix.employemanagement.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -31,7 +32,8 @@ public class User {
     private String passwordHash;
 
     @Column(nullable = false)
-    private String role; // EMPLOYEE / ADMIN
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role; // EMPLOYEE / ADMIN
 
     @Column(nullable = false)
     private Boolean active = true;
