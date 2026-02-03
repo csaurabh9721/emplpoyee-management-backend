@@ -8,11 +8,10 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OfficeResponseDto {
+public class OfficeRequestDto {
 
-    private Long id;
+    private Long organizationId;
     private String name;
-    private Organization organization;
     private Double latitude;
     private Double longitude;
     private String address;

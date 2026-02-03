@@ -32,15 +32,21 @@ public class Office {
     private Double longitude;
 
     @Column(nullable = false)
-    private Integer geofenceRadiusM;
+    private String  address;
 
     @Column(nullable = false)
     private Boolean active = true;
 
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }
