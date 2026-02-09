@@ -1,4 +1,4 @@
-package com.devix.employemanagement.dtos;
+package com.devix.employemanagement.dtos.officeDto;
 
 import com.devix.employemanagement.entities.Organization;
 import lombok.*;

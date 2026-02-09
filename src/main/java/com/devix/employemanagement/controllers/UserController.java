@@ -1,7 +1,7 @@
 package com.devix.employemanagement.controllers;
 
-import com.devix.employemanagement.dtos.UserRequestDTO;
-import com.devix.employemanagement.dtos.UserResponseDto;
+import com.devix.employemanagement.dtos.userDto.UserRequestDTO;
+import com.devix.employemanagement.dtos.userDto.UserResponseDto;
 import com.devix.employemanagement.services.UserService.UserService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

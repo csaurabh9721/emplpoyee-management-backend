@@ -2,9 +2,8 @@ package com.devix.employemanagement.controllers;
 
 
 import com.devix.employemanagement.dtos.ApiResponse;
-import com.devix.employemanagement.dtos.OfficeRequestDto;
-import com.devix.employemanagement.dtos.OfficeResponseDto;
-import com.devix.employemanagement.entities.Office;
+import com.devix.employemanagement.dtos.officeDto.OfficeRequestDto;
+import com.devix.employemanagement.dtos.officeDto.OfficeResponseDto;
 import com.devix.employemanagement.services.officeService.OfficeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

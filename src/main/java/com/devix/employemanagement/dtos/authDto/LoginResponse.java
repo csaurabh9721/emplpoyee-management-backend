@@ -1,16 +1,14 @@
-package com.devix.employemanagement.dtos;
+package com.devix.employemanagement.dtos.authDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class LoginResponse {
-    private String userId;
+    private Long userId;
     private String employeeName;
     private String employeeCode;
     private String accessToken;

@@ -1,7 +1,7 @@
 package com.devix.employemanagement.Mappers;
 
-import com.devix.employemanagement.dtos.UserRequestDTO;
-import com.devix.employemanagement.dtos.UserResponseDto;
+import com.devix.employemanagement.dtos.userDto.UserRequestDTO;
+import com.devix.employemanagement.dtos.userDto.UserResponseDto;
 import com.devix.employemanagement.entities.Organization;
 import com.devix.employemanagement.entities.User;
 import org.springframework.stereotype.Component;

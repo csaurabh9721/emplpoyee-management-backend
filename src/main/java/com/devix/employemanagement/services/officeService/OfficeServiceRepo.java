@@ -1,8 +1,8 @@
 package com.devix.employemanagement.services.officeService;
 
 import com.devix.employemanagement.Mappers.OfficeMapper;
-import com.devix.employemanagement.dtos.OfficeRequestDto;
-import com.devix.employemanagement.dtos.OfficeResponseDto;
+import com.devix.employemanagement.dtos.officeDto.OfficeRequestDto;
+import com.devix.employemanagement.dtos.officeDto.OfficeResponseDto;
 import com.devix.employemanagement.entities.Office;
 import com.devix.employemanagement.entities.Organization;
 import com.devix.employemanagement.repo.OfficeRepo;

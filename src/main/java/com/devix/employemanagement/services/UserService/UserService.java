@@ -1,30 +1,28 @@
 package com.devix.employemanagement.services.UserService;
 
 import com.devix.employemanagement.Mappers.UserMapper;
-import com.devix.employemanagement.dtos.UserRequestDTO;
-import com.devix.employemanagement.dtos.UserResponseDto;
+import com.devix.employemanagement.dtos.userDto.UserRequestDTO;
+import com.devix.employemanagement.dtos.userDto.UserResponseDto;
 import com.devix.employemanagement.entities.Organization;
 import com.devix.employemanagement.entities.User;
 import com.devix.employemanagement.repo.OrganizationRepo;
 import com.devix.employemanagement.repo.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final OrganizationRepo organizationRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository,
-                       OrganizationRepo organizationRepository,
-                       UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.organizationRepository = organizationRepository;
-        this.userMapper = userMapper;
-    }
 
     public UserResponseDto createUser(UserRequestDTO dto) {
         Organization org = organizationRepository.findById(dto.getOrganizationId())
@@ -52,7 +50,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         user.setEmail(dto.getEmail());
         user.setMobile(dto.getMobile());
-        user.setPasswordHash(dto.getPasswordHash());
+        user.setPasswordHash(passwordEncoder.encode(dto.getPasswordHash()));
         user.setRole(dto.getRole());
         user.setActive(dto.getActive());
         return userMapper.toResponseDTO(userRepository.save(user));
