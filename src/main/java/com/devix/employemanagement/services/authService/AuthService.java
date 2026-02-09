@@ -1,0 +1,7 @@
+package com.devix.employemanagement.services.authService;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
+}

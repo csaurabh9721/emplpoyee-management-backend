@@ -1,6 +1,9 @@
-package com.devix.employemanagement.dtos;
+package com.devix.employemanagement.dtos.EmployeeDto;
 
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,5 +18,10 @@ public class EmployeeResponseDto {
     private String designation;
     private String department;
     private String profileImageUrl;
+    private LocalDate joiningDate;
     private String status;
+    private Long userId;
+    private Long organizationId;
+    private Long primaryOfficeId;
+    private LocalDateTime createdAt;
 }
