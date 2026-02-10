@@ -8,6 +8,7 @@ import com.devix.employemanagement.exceptions.BadRequestException;
 import com.devix.employemanagement.exceptions.ResourceNotFoundException;
 import com.devix.employemanagement.repo.EmployeeRepository;
 import com.devix.employemanagement.repo.UserRepository;
+import com.devix.employemanagement.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,13 +21,16 @@ public class AuthService {
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public LoginResponse login(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmailId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPasswordHash())) {
             throw new BadRequestException("Wrong password");
         }
+        String token = jwtUtil.generateToken(loginRequest.getEmailId(),user.getId(),user.getRole().toString());
+
         Employee employee = employeeRepository.findByUserId(user.getId().toString());
-        return LoginResponse.builder().userId(user.getId()).employeeCode(employee.getEmployeeCode()).employeeName(employee.getFullName()).accessToken("").refreshToken("").build();
+        return LoginResponse.builder().userId(user.getId()).employeeCode(employee.getEmployeeCode()).employeeName(employee.getFullName()).accessToken(token).refreshToken("").build();
     }
 }
