@@ -14,10 +14,10 @@ import java.util.Date;
 public class JwtUtil {
 
 
-    public String generateToken(String email,Long userId,String role) {
+    public String generateToken(String email,Long employeeId,String role) {
         return Jwts.builder()
                 .setSubject(email)
-                .claim("user_id", userId)
+                .claim("employee_id", employeeId)
                 .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + Constants.accessTokenValidity)) // 1 hour
@@ -28,8 +28,8 @@ public class JwtUtil {
     public String extractEmail(String token) {
         return getClaims(token).getSubject();
     }
-    public Long extractUserId(String token) {
-        return getClaims(token).get("user_id", Long.class);
+    public Long extractEmployeeId(String token) {
+        return getClaims(token).get("employee_id", Long.class);
     }
 
     public String extractRole(String token) {

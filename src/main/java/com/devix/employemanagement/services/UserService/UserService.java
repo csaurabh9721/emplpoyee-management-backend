@@ -28,6 +28,7 @@ public class UserService {
         Organization org = organizationRepository.findById(dto.getOrganizationId())
                 .orElseThrow(() -> new RuntimeException("Organization not found"));
         User user = userMapper.toEntity(dto, org);
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         return userMapper.toResponseDTO(userRepository.save(user));
     }
 

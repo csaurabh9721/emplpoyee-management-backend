@@ -28,9 +28,8 @@ public class AuthService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPasswordHash())) {
             throw new BadRequestException("Wrong password");
         }
-        String token = jwtUtil.generateToken(loginRequest.getEmailId(),user.getId(),user.getRole().toString());
-
         Employee employee = employeeRepository.findByUserId(user.getId().toString());
+        String token = jwtUtil.generateToken(loginRequest.getEmailId(), employee.getId(), user.getRole().toString());
         return LoginResponse.builder().userId(user.getId()).employeeCode(employee.getEmployeeCode()).employeeName(employee.getFullName()).accessToken(token).refreshToken("").build();
     }
 }
