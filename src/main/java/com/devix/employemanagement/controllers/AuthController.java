@@ -4,6 +4,8 @@ package com.devix.employemanagement.controllers;
 import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.authDto.LoginRequest;
 import com.devix.employemanagement.dtos.authDto.LoginResponse;
+import com.devix.employemanagement.dtos.authDto.RefreshTokenRequest;
+import com.devix.employemanagement.dtos.authDto.RefreshTokenResponse;
 import com.devix.employemanagement.entities.Employee;
 import com.devix.employemanagement.repo.EmployeeRepository;
 import com.devix.employemanagement.services.authService.AuthService;
@@ -24,6 +26,13 @@ public class AuthController {
     protected ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
         LoginResponse response = authService.login(loginRequest);
         return ResponseEntity.ok(new ApiResponse<>(200, "Login Successfully", response
+        ));
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<ApiResponse<RefreshTokenResponse>> refresh(@RequestBody RefreshTokenRequest refreshToken) {
+        RefreshTokenResponse refreshTokenResponse = authService.refreshToken(refreshToken.getRefreshToken());
+        return ResponseEntity.ok(new ApiResponse<>(200, "Login Successfully", refreshTokenResponse
         ));
     }
 

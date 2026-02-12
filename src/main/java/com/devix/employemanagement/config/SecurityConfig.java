@@ -55,7 +55,7 @@ public class SecurityConfig {
     public SecurityFilterChain loginFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .securityMatcher("/api/auth/login")
+                .securityMatcher("/api/auth/**")
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
