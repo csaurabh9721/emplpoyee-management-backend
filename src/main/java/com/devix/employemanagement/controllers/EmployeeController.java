@@ -36,7 +36,7 @@ public class EmployeeController {
     public ResponseEntity<ApiResponse<EmployeeResponseDto>> getById() {
         return ResponseEntity.ok(
                 new ApiResponse<>(200, "Employee fetched successfully",
-                        employeeService.getById(SecurityUtil.getCurrentUserId()))
+                        employeeService.getById(SecurityUtil.getCurrentEmployeeId()))
         );
     }
 

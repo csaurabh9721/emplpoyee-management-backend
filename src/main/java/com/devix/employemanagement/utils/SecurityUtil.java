@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityUtil {
 
-    public static Long getCurrentUserId() {
+    public static Long getCurrentEmployeeId() {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             assert auth != null;
