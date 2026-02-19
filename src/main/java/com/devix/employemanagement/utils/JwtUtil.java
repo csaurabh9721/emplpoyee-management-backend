@@ -24,6 +24,14 @@ public class JwtUtil {
                 .signWith(Keys.hmacShaKeyFor(Constants.SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
+    public String generateRefreshToken(String email) {
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + Constants.refreshTokenValidity))
+                .signWith(Keys.hmacShaKeyFor(Constants.SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
+                .compact();
+    }
 
     public String extractEmail(String token) {
         return getClaims(token).getSubject();

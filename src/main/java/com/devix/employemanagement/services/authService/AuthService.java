@@ -2,6 +2,7 @@ package com.devix.employemanagement.services.authService;
 
 import com.devix.employemanagement.dtos.authDto.LoginRequest;
 import com.devix.employemanagement.dtos.authDto.LoginResponse;
+import com.devix.employemanagement.dtos.authDto.RefreshTokenResponse;
 import com.devix.employemanagement.entities.Employee;
 import com.devix.employemanagement.entities.User;
 import com.devix.employemanagement.exceptions.BadRequestException;
@@ -29,7 +30,24 @@ public class AuthService {
             throw new BadRequestException("Wrong password");
         }
         Employee employee = employeeRepository.findByUserId(user.getId().toString());
-        String token = jwtUtil.generateToken(loginRequest.getEmailId(), employee.getId(), user.getRole().toString());
-        return LoginResponse.builder().userId(user.getId()).employeeCode(employee.getEmployeeCode()).employeeName(employee.getFullName()).accessToken(token).refreshToken("").build();
+        String accessToken = jwtUtil.generateToken(loginRequest.getEmailId(), employee.getId(), user.getRole().toString());
+        String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmailId());
+        return LoginResponse.builder().userId(user.getId()).employeeCode(employee.getEmployeeCode()).employeeName(employee.getFullName()).accessToken(accessToken).refreshToken(refreshToken).build();
+    }
+
+    public RefreshTokenResponse refreshToken(String refreshToken) {
+
+        if (!jwtUtil.isTokenValid(refreshToken)) {
+            throw new BadRequestException("Invalid refresh token");
+        }
+        String email = jwtUtil.extractEmail(refreshToken);
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Employee employee = employeeRepository.findByUserId(user.getId().toString());
+        String newAccessToken = jwtUtil.generateToken(email, employee.getId(), user.getRole().toString());
+        String newRefreshToken = jwtUtil.generateRefreshToken(email);
+        return RefreshTokenResponse.builder()
+                .accessToken(newAccessToken)
+                .refreshToken(newRefreshToken)
+                .build();
     }
 }
