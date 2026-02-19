@@ -70,6 +70,22 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
+    public SecurityFilterChain swaggerFilterChain(HttpSecurity http) throws Exception {
+
+        http
+                .securityMatcher(
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(3)
     public SecurityFilterChain apiFilterChain(
             HttpSecurity http,
             JwtAuthFilter jwtAuthFilter
