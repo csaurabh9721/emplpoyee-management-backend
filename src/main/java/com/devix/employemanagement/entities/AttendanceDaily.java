@@ -39,6 +39,9 @@ public class AttendanceDaily {
     private LocalDateTime punchInTime;
     private LocalDateTime punchOutTime;
 
+    private String status; // PRESENT, HALF_DAY, ABSENT, AUTO_CLOSED
+
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
