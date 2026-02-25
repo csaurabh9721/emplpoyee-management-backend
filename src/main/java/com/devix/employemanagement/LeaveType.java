@@ -1,4 +1,4 @@
-package com.devix.employemanagement.entities;
+package com.devix.employemanagement;
 
 public enum LeaveType {
     EL, // Earned Leave

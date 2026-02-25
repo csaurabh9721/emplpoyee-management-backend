@@ -1,6 +1,6 @@
 package com.devix.employemanagement.dtos.leaveBalanceDto;
 
-import com.devix.employemanagement.entities.LeaveType;
+import com.devix.employemanagement.LeaveType;
 import lombok.*;
 
 import java.time.LocalDateTime;
