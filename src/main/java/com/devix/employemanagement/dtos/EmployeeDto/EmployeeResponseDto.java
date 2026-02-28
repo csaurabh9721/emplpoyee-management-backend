@@ -1,5 +1,6 @@
 package com.devix.employemanagement.dtos.EmployeeDto;
 
+import com.devix.employemanagement.entities.Designation;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public class EmployeeResponseDto {
     private Long id;
     private String employeeCode;
     private String fullName;
-    private String designation;
+    Designation designation;
     private String department;
     private String profileImageUrl;
     private LocalDate joiningDate;

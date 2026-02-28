@@ -2,10 +2,7 @@ package com.devix.employemanagement.Mappers;
 
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
-import com.devix.employemanagement.entities.Employee;
-import com.devix.employemanagement.entities.Office;
-import com.devix.employemanagement.entities.Organization;
-import com.devix.employemanagement.entities.User;
+import com.devix.employemanagement.entities.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,14 +13,14 @@ public class EmployeeMapper {
     public Employee toEntity(EmployeeRequestDto dto,
                              User user,
                              Organization organization,
-                             Office office) {
+                             Office office, Designation designation) {
 
         return Employee.builder()
                 .user(user)
                 .organization(organization)
                 .employeeCode(dto.getEmployeeCode())
                 .fullName(dto.getFullName())
-                .designation(dto.getDesignation())
+                .designation(designation)
                 .department(dto.getDepartment())
                 .profileImageUrl(dto.getProfileImageUrl())
                 .primaryOffice(office)

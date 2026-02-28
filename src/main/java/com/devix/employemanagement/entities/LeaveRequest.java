@@ -1,6 +1,6 @@
 package com.devix.employemanagement.entities;
 
-import com.devix.employemanagement.LeaveType;
+import com.devix.employemanagement.utils.LeaveType;
 import jakarta.persistence.*;
 import lombok.*;
 

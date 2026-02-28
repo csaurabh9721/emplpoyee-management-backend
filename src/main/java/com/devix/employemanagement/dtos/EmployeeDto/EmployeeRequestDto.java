@@ -17,7 +17,7 @@ public class EmployeeRequestDto {
     private Long organizationId;
     private String employeeCode;
     private String fullName;
-    private String designation;
+    private Long designationId;
     private String department;
     private String profileImageUrl;
     private Long primaryOfficeId;

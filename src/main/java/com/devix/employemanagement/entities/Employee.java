@@ -33,10 +33,13 @@ public class Employee {
     @Column(nullable = false)
     private String fullName;
 
-    private String designation;
     private String department;
 
     private String profileImageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "designation_id")
+    private Designation designation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "primary_office_id")

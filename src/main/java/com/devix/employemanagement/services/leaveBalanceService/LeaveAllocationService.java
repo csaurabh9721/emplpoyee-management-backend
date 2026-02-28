@@ -2,7 +2,7 @@ package com.devix.employemanagement.services.leaveBalanceService;
 
 import com.devix.employemanagement.entities.Employee;
 import com.devix.employemanagement.entities.LeaveBalance;
-import com.devix.employemanagement.LeaveType;
+import com.devix.employemanagement.utils.LeaveType;
 import com.devix.employemanagement.repo.EmployeeRepository;
 import com.devix.employemanagement.repo.LeaveBalanceRepository;
 import lombok.RequiredArgsConstructor;

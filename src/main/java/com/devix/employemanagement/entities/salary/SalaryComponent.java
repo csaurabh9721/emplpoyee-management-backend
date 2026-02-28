@@ -1,10 +1,8 @@
 package com.devix.employemanagement.entities.salary;
 
-import com.devix.employemanagement.CalculationType;
+import com.devix.employemanagement.utils.CalculationType;
 import jakarta.persistence.*;
 import org.hibernate.type.ComponentType;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "salary_component")

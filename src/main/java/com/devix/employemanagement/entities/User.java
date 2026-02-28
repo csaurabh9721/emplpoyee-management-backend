@@ -1,6 +1,6 @@
 package com.devix.employemanagement.entities;
 
-import com.devix.employemanagement.RoleEnum;
+import com.devix.employemanagement.utils.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.devix.employemanagement;
+package com.devix.employemanagement.utils;
 
 public enum ComponentType {
     EARNING,

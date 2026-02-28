@@ -3,16 +3,10 @@ package com.devix.employemanagement.services.employeeService;
 import com.devix.employemanagement.Mappers.EmployeeMapper;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
-import com.devix.employemanagement.entities.Employee;
-import com.devix.employemanagement.entities.Office;
-import com.devix.employemanagement.entities.Organization;
-import com.devix.employemanagement.entities.User;
+import com.devix.employemanagement.entities.*;
 import com.devix.employemanagement.exceptions.BadRequestException;
 import com.devix.employemanagement.exceptions.ResourceNotFoundException;
-import com.devix.employemanagement.repo.EmployeeRepository;
-import com.devix.employemanagement.repo.OfficeRepo;
-import com.devix.employemanagement.repo.OrganizationRepo;
-import com.devix.employemanagement.repo.UserRepository;
+import com.devix.employemanagement.repo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +21,7 @@ public class EmployeeService {
     private final OrganizationRepo organizationRepository;
     private final OfficeRepo officeRepository;
     private final EmployeeMapper employeeMapper;
+    private final DesignationRepo designationRepo;
 
     public EmployeeResponseDto create(EmployeeRequestDto dto) {
 
@@ -45,8 +40,10 @@ public class EmployeeService {
             office = officeRepository.findById(dto.getPrimaryOfficeId())
                     .orElseThrow(() -> new ResourceNotFoundException("Office not found"));
         }
+        Designation designation = designationRepo.findById(dto.getDesignationId())
+                .orElseThrow(() -> new ResourceNotFoundException("Designation not found"));
 
-        Employee employee = employeeMapper.toEntity(dto, user, org, office);
+        Employee employee = employeeMapper.toEntity(dto, user, org, office, designation);
 
         return employeeMapper.toDto(employeeRepository.save(employee));
     }
