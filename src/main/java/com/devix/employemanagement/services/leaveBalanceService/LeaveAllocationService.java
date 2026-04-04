@@ -49,11 +49,16 @@ public class LeaveAllocationService {
     }
 
     private int getDefaultLeave(LeaveType type) {
-        return switch (type) {
-            case EL -> 15;
-            case CL -> 10;
-            case RH -> 12;
-        };
+        switch (type) {
+            case EL:
+                return 15;
+            case CL:
+                return 10;
+            case RH:
+                return 12;
+            default:
+                throw new IllegalArgumentException("Unknown leave type: " + type);
+        }
     }
 }
 

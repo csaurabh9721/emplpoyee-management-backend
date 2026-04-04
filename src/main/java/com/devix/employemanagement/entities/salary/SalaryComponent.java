@@ -2,7 +2,8 @@ package com.devix.employemanagement.entities.salary;
 
 import com.devix.employemanagement.utils.CalculationType;
 import jakarta.persistence.*;
-import org.hibernate.type.ComponentType;
+import com.devix.employemanagement.utils.ComponentType;
+
 
 @Entity
 @Table(name = "salary_component")
