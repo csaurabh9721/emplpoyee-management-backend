@@ -1,8 +1,8 @@
 package com.devix.employemanagement.entities.salary;
 
-import com.devix.employemanagement.utils.CalculationType;
+import com.devix.employemanagement.utils.enums.CalculationType;
 import jakarta.persistence.*;
-import com.devix.employemanagement.utils.ComponentType;
+import com.devix.employemanagement.utils.enums.ComponentType;
 
 
 @Entity

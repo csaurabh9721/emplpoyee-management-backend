@@ -1,6 +1,6 @@
 package com.devix.employemanagement.entities.salary;
 
-import com.devix.employemanagement.entities.Employee;
+import com.devix.employemanagement.entities.User.Employee;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

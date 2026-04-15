@@ -2,7 +2,7 @@ package com.devix.employemanagement.Mappers;
 
 import com.devix.employemanagement.dtos.leaveBalanceDto.LeaveBalanceRequestDto;
 import com.devix.employemanagement.dtos.leaveBalanceDto.LeaveBalanceResponseDto;
-import com.devix.employemanagement.entities.Employee;
+import com.devix.employemanagement.entities.User.Employee;
 import com.devix.employemanagement.entities.LeaveBalance;
 import org.springframework.stereotype.Component;
 

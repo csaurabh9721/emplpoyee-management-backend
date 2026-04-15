@@ -1,5 +1,7 @@
 package com.devix.employemanagement.dtos.EmployeeDto;
 
+import com.devix.employemanagement.utils.enums.GenderEnum;
+import com.devix.employemanagement.utils.enums.MaritalStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EmployeeRequestDto {
 
-    private Long userId;
     private Long organizationId;
     private String employeeCode;
     private String fullName;
@@ -23,4 +24,42 @@ public class EmployeeRequestDto {
     private Long primaryOfficeId;
     private LocalDate joiningDate;
     private String status;
+
+    // User
+    private Long userId;
+    private String email;
+    private String phone;
+
+    // Employee
+    private String firstName;
+    private String lastName;
+
+    // Personal
+    private LocalDate dateOfBirth;
+    private GenderEnum gender;
+    private MaritalStatusEnum maritalStatus;
+    private String bloodGroup;
+    private String panNumber;
+    private String aadharNumber;
+
+    // Address
+    private String address;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String country;
+
+    // Emergency
+    private String emergencyName;
+    private String emergencyPhone;
+    private String emergencyRelation;
+
+    // Bank
+    private String bankName;
+    private String accountNumber;
+    private String ifscCode;
+
+    // Employment
+    private String pfNumber;
+    private String esiNumber;
 }

@@ -1,6 +1,6 @@
 package com.devix.employemanagement.dtos.userDto;
 
-import com.devix.employemanagement.utils.RoleEnum;
+import com.devix.employemanagement.utils.enums.RoleEnum;
 import lombok.Data;
 
 

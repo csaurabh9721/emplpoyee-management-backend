@@ -4,7 +4,7 @@ import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
 import com.devix.employemanagement.services.employeeService.EmployeeService;
-import com.devix.employemanagement.utils.SecurityUtil;
+import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

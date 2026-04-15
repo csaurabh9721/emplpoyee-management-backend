@@ -1,4 +1,4 @@
-package com.devix.employemanagement.utils;
+package com.devix.employemanagement.utils.security;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

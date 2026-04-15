@@ -1,6 +1,6 @@
 package com.devix.employemanagement.dtos.leaveBalanceDto;
 
-import com.devix.employemanagement.utils.LeaveType;
+import com.devix.employemanagement.utils.enums.LeaveType;
 import lombok.*;
 
 @Getter

@@ -3,7 +3,7 @@ package com.devix.employemanagement.controllers;
 import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.leaveBalanceDto.LeaveBalanceResponseDto;
 import com.devix.employemanagement.services.leaveBalanceService.LeaveBalanceService;
-import com.devix.employemanagement.utils.SecurityUtil;
+import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

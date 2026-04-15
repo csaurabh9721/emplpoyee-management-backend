@@ -3,7 +3,7 @@ package com.devix.employemanagement.Mappers;
 import com.devix.employemanagement.dtos.userDto.UserRequestDTO;
 import com.devix.employemanagement.dtos.userDto.UserResponseDto;
 import com.devix.employemanagement.entities.Organization;
-import com.devix.employemanagement.entities.User;
+import com.devix.employemanagement.entities.User.User;
 import org.springframework.stereotype.Component;
 
 @Component

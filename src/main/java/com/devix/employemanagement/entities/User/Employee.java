@@ -1,6 +1,9 @@
-package com.devix.employemanagement.entities;
+package com.devix.employemanagement.entities.User;
 
 
+import com.devix.employemanagement.entities.Designation;
+import com.devix.employemanagement.entities.Office;
+import com.devix.employemanagement.entities.Organization;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
