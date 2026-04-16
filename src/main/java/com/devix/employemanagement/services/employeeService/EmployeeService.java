@@ -1,9 +1,10 @@
 package com.devix.employemanagement.services.employeeService;
 
-import com.devix.employemanagement.Mappers.EmployeeMapper;
-import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
-import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
-import com.devix.employemanagement.dtos.EmployeeDto.EmployeeUpdateProfileDto;
+import com.devix.employemanagement.Mappers.employeeMapper.CreateEmployeeMapper;
+import com.devix.employemanagement.Mappers.employeeMapper.EmployeeMapper;
+import com.devix.employemanagement.dtos.EmployeeDto.requestDto.EmployeeCreateDto;
+import com.devix.employemanagement.dtos.EmployeeDto.responseDto.EmployeeResponseDto;
+import com.devix.employemanagement.dtos.EmployeeDto.requestDto.EmployeeUpdateProfileDto;
 import com.devix.employemanagement.entities.*;
 import com.devix.employemanagement.entities.User.*;
 import com.devix.employemanagement.exceptions.BadRequestException;
@@ -25,6 +26,7 @@ public class EmployeeService {
     private final OrganizationRepo organizationRepository;
     private final OfficeRepo officeRepository;
     private final EmployeeMapper employeeMapper;
+    private final CreateEmployeeMapper createEmployeeMapper;
     private final DesignationRepo designationRepo;
     private final EmployeePersonalDetailsRepo personalRepo;
     private final EmployeeAddressRepo addressRepo;
@@ -33,7 +35,7 @@ public class EmployeeService {
     private final EmployeeEmploymentDetailsRepo employmentRepo;
 
     @Transactional
-    public EmployeeResponseDto create(EmployeeRequestDto dto) {
+    public EmployeeResponseDto create(EmployeeCreateDto dto) {
 
         if (employeeRepository.existsByEmployeeCode(dto.getEmployeeCode())) {
             throw new BadRequestException("Employee code already exists");
@@ -45,45 +47,25 @@ public class EmployeeService {
         Organization org = organizationRepository.findById(dto.getOrganizationId())
                 .orElseThrow(() -> new ResourceNotFoundException("Organization not found"));
 
-        Office office = null;
-        if (dto.getPrimaryOfficeId() != null) {
-            office = officeRepository.findById(dto.getPrimaryOfficeId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Office not found"));
-        }
+        Office office = dto.getPrimaryOfficeId() != null
+                ? officeRepository.findById(dto.getPrimaryOfficeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Office not found"))
+                : null;
 
         Designation designation = designationRepo.findById(dto.getDesignationId())
                 .orElseThrow(() -> new ResourceNotFoundException("Designation not found"));
 
-        // ✅ 1. Save Employee
-        Employee emp = employeeMapper.toEntity(dto, user, org, office, designation);
+        // ✅ Employee
+        Employee emp = createEmployeeMapper.toEntity(dto, user, org, office, designation);
         emp = employeeRepository.save(emp);
 
-        // ✅ 2. Save Personal
-        EmployeePersonalDetails personal = personalRepo.save(
-                employeeMapper.toPersonal(dto, emp)
-        );
+        // ✅ Sub Entities
+        EmployeePersonalDetails personal = personalRepo.save(createEmployeeMapper.toPersonal(dto, emp));
+        EmployeeAddress address = addressRepo.save(createEmployeeMapper.toAddress(dto, emp));
+        EmployeeEmergencyContact emergency = emergencyRepo.save(createEmployeeMapper.toEmergency(dto, emp));
+        EmployeeBankDetails bank = bankRepo.save(createEmployeeMapper.toBank(dto, emp));
+        EmployeeEmploymentDetails employment = employmentRepo.save(createEmployeeMapper.toEmployment(dto, emp));
 
-        // ✅ 3. Save Address
-        EmployeeAddress address = addressRepo.save(
-                employeeMapper.toAddress(dto, emp)
-        );
-
-        // ✅ 4. Save Emergency
-        EmployeeEmergencyContact emergency = emergencyRepo.save(
-                employeeMapper.toEmergency(dto, emp)
-        );
-
-        // ✅ 5. Save Bank
-        EmployeeBankDetails bank = bankRepo.save(
-                employeeMapper.toBank(dto, emp)
-        );
-
-        // ✅ 6. Save Employment
-        EmployeeEmploymentDetails employment = employmentRepo.save(
-                employeeMapper.toEmployment(dto, emp)
-        );
-
-        // ✅ 7. Return FULL DTO
         return employeeMapper.toDto(emp, address, bank, emergency, employment, personal);
     }
 

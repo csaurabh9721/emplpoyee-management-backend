@@ -1,4 +1,4 @@
-package com.devix.employemanagement.dtos.EmployeeDto;
+package com.devix.employemanagement.dtos.EmployeeDto.responseDto;
 
 import com.devix.employemanagement.entities.Designation;
 import com.devix.employemanagement.utils.enums.EmploymentType;

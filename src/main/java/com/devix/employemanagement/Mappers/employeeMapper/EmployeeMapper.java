@@ -1,6 +1,6 @@
-package com.devix.employemanagement.Mappers;
+package com.devix.employemanagement.Mappers.employeeMapper;
 
-import com.devix.employemanagement.dtos.EmployeeDto.*;
+import com.devix.employemanagement.dtos.EmployeeDto.responseDto.*;
 import com.devix.employemanagement.entities.*;
 import com.devix.employemanagement.entities.User.*;
 import lombok.RequiredArgsConstructor;
@@ -10,78 +10,77 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EmployeeMapper {
 
-    // 🔹 Personal Details
-    public EmployeePersonalDetails toPersonal(EmployeeRequestDto dto, Employee emp) {
-        return EmployeePersonalDetails.builder()
-                .employee(emp)
-                .dateOfBirth(dto.getDateOfBirth())
-                .gender(dto.getGender() != null ? dto.getGender().name() : null)
-                .maritalStatus(dto.getMaritalStatus() != null ? dto.getMaritalStatus().name() : null)
-                .bloodGroup(dto.getBloodGroup())
-                .panNumber(dto.getPanNumber())
-                .aadharNumber(dto.getAadharNumber())
-                .build();
-    }
-
-    // 🔹 Address
-    public EmployeeAddress toAddress(EmployeeRequestDto dto, Employee emp) {
-        return EmployeeAddress.builder()
-                .employee(emp)
-                .address(dto.getAddress())
-                .city(dto.getCity())
-                .state(dto.getState())
-                .postalCode(dto.getPostalCode())
-                .country(dto.getCountry())
-                .build();
-    }
-
-    // 🔹 Emergency Contact
-    public EmployeeEmergencyContact toEmergency(EmployeeRequestDto dto, Employee emp) {
-        return EmployeeEmergencyContact.builder()
-                .employee(emp)
-                .name(dto.getEmergencyName())
-                .phone(dto.getEmergencyPhone())
-                .relation(dto.getEmergencyRelation())
-                .build();
-    }
-
-    // 🔹 Bank Details
-    public EmployeeBankDetails toBank(EmployeeRequestDto dto, Employee emp) {
-        return EmployeeBankDetails.builder()
-                .employee(emp)
-                .bankName(dto.getBankName())
-                .accountNumber(dto.getAccountNumber())
-                .ifscCode(dto.getIfscCode())
-                .build();
-    }
-
-    // 🔹 Employment Details
-    public EmployeeEmploymentDetails toEmployment(EmployeeRequestDto dto, Employee emp) {
-        return EmployeeEmploymentDetails.builder()
-                .employee(emp)
-                .pfNumber(dto.getPfNumber())
-                .esiNumber(dto.getEsiNumber())
-                .build();
-    }
-
-    public Employee toEntity(EmployeeRequestDto dto,
-                             User user,
-                             Organization organization,
-                             Office office, Designation designation) {
-
-        return Employee.builder()
-                .user(user)
-                .organization(organization)
-                .employeeCode(dto.getEmployeeCode())
-                .fullName(dto.getFullName())
-                .designation(designation)
-                .department(dto.getDepartment())
-                .profileImageUrl(dto.getProfileImageUrl())
-                .primaryOffice(office)
-                .joiningDate(dto.getJoiningDate())
-                .status(dto.getStatus())
-                .build();
-    }
+//    // 🔹 Personal Details
+//    public EmployeePersonalDetails toPersonal(EmployeeRequestDto dto, Employee emp) {
+//        return EmployeePersonalDetails.builder()
+//                .employee(emp)
+//                .dateOfBirth(dto.getDateOfBirth())
+//                .gender(dto.getGender() != null ? dto.getGender().name() : null)
+//                .maritalStatus(dto.getMaritalStatus() != null ? dto.getMaritalStatus().name() : null)
+//                .bloodGroup(dto.getBloodGroup())
+//                .panNumber(dto.getPanNumber())
+//                .aadharNumber(dto.getAadharNumber())
+//                .build();
+//    }
+//
+//    // 🔹 Address
+//    public EmployeeAddress toAddress(EmployeeRequestDto dto, Employee emp) {
+//        return EmployeeAddress.builder()
+//                .employee(emp)
+//                .address(dto.getAddress())
+//                .city(dto.getCity())
+//                .state(dto.getState())
+//                .postalCode(dto.getPostalCode())
+//                .country(dto.getCountry())
+//                .build();
+//    }
+//
+//    // 🔹 Emergency Contact
+//    public EmployeeEmergencyContact toEmergency(EmployeeRequestDto dto, Employee emp) {
+//        return EmployeeEmergencyContact.builder()
+//                .employee(emp)
+//                .name(dto.getEmergencyName())
+//                .phone(dto.getEmergencyPhone())
+//                .relation(dto.getEmergencyRelation())
+//                .build();
+//    }
+//
+//    // 🔹 Bank Details
+//    public EmployeeBankDetails toBank(EmployeeRequestDto dto, Employee emp) {
+//        return EmployeeBankDetails.builder()
+//                .employee(emp)
+//                .bankName(dto.getBankName())
+//                .accountNumber(dto.getAccountNumber())
+//                .ifscCode(dto.getIfscCode())
+//                .build();
+//    }
+//
+//    // 🔹 Employment Details
+//    public EmployeeEmploymentDetails toEmployment(EmployeeRequestDto dto, Employee emp) {
+//        return EmployeeEmploymentDetails.builder()
+//                .employee(emp)
+//                .pfNumber(dto.getPfNumber())
+//                .esiNumber(dto.getEsiNumber())
+//                .build();
+//    }
+//    public Employee toEntity(EmployeeRequestDto dto,
+//                             User user,
+//                             Organization organization,
+//                             Office office, Designation designation) {
+//
+//        return Employee.builder()
+//                .user(user)
+//                .organization(organization)
+//                .employeeCode(dto.getEmployeeCode())
+//                .fullName(dto.getFullName())
+//                .designation(designation)
+//                .department(dto.getDepartment())
+//                .profileImageUrl(dto.getProfileImageUrl())
+//                .primaryOffice(office)
+//                .joiningDate(dto.getJoiningDate())
+//                .status(dto.getStatus())
+//                .build();
+//    }
 
     public EmployeeResponseDto toDto(
             Employee emp,

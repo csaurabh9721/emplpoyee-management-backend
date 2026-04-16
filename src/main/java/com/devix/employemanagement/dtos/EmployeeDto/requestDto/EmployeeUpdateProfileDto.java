@@ -1,4 +1,4 @@
-package com.devix.employemanagement.dtos.EmployeeDto;
+package com.devix.employemanagement.dtos.EmployeeDto.requestDto;
 
 import lombok.Data;
 

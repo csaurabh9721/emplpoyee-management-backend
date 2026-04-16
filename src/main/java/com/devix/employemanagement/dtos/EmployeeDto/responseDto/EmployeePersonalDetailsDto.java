@@ -1,7 +1,5 @@
-package com.devix.employemanagement.dtos.EmployeeDto;
+package com.devix.employemanagement.dtos.EmployeeDto.responseDto;
 
-import com.devix.employemanagement.entities.User.Employee;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
