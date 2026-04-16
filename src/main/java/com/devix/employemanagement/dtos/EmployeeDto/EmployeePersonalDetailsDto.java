@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @Builder
 public class EmployeePersonalDetailsDto {
     private Long id;
+    private String personalEmail;
+    private String alternateMobileNumber;
     private LocalDate dateOfBirth;
     private String gender;
     private String maritalStatus;

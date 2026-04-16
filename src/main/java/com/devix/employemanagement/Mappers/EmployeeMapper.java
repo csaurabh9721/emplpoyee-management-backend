@@ -101,6 +101,7 @@ public class EmployeeMapper {
                 .joiningDate(emp.getJoiningDate())
                 .status(emp.getStatus())
                 .userId(emp.getUser() != null ? emp.getUser().getId() : null)
+                .phone(emp.getUser() != null ? emp.getUser().getMobile() : null)
                 .organizationId(emp.getOrganization() != null ? emp.getOrganization().getId() : null)
                 .primaryOfficeId(
                         emp.getPrimaryOffice() != null ? emp.getPrimaryOffice().getId() : null
@@ -109,6 +110,11 @@ public class EmployeeMapper {
                 .emergencyContact(toEmergencyDto(emergency))
                 .employeeEmploymentDetails(toEmploymentDto(employment))
                 .personalDetails(toPersonalDto(personal))
+                .primaryOfficeName(emp.getPrimaryOffice() != null ? emp.getPrimaryOffice().getName() : null)
+                .organizationName(emp.getOrganization() != null ? emp.getOrganization().getName() : null)
+                .employmentType(emp.getEmploymentType())
+                .managerId(emp.getManagerId())
+                .managerName(emp.getManagerName())
                 .build();
 
     }
@@ -123,6 +129,8 @@ public class EmployeeMapper {
                 .bloodGroup(dto.getBloodGroup())
                 .panNumber(dto.getPanNumber())
                 .aadharNumber(dto.getAadharNumber())
+                .personalEmail(dto.getPersonalEmail())
+                .alternateMobileNumber(dto.getAlternateMobileNumber())
                 .build();
     }
 
@@ -135,6 +143,11 @@ public class EmployeeMapper {
                 .state(dto.getState())
                 .postalCode(dto.getPostalCode())
                 .country(dto.getCountry())
+                .permanentAddress(dto.getPermanentAddress())
+                .permanentCity(dto.getPermanentCity())
+                .permanentState(dto.getPermanentState())
+                .permanentPostalCode(dto.getPermanentPostalCode())
+                .permanentCountry(dto.getPermanentCountry())
                 .build();
     }
 

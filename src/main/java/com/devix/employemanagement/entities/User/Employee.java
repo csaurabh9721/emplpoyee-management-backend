@@ -4,6 +4,7 @@ package com.devix.employemanagement.entities.User;
 import com.devix.employemanagement.entities.Designation;
 import com.devix.employemanagement.entities.Office;
 import com.devix.employemanagement.entities.Organization;
+import com.devix.employemanagement.utils.EmploymentType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -48,7 +49,14 @@ public class Employee {
     @JoinColumn(name = "primary_office_id")
     private Office primaryOffice;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EmploymentType employmentType;
+
     private LocalDate joiningDate;
+
+    private Long managerId;
+    private String managerName;
 
     @Column(nullable = false)
     private String status; // ACTIVE / INACTIVE

@@ -22,6 +22,8 @@ public class EmployeePersonalDetails {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    private String personalEmail;
+    private String alternateMobileNumber;
     private LocalDate dateOfBirth;
     private String gender;
     private String maritalStatus;

@@ -26,4 +26,9 @@ public class EmployeeAddress {
     private String state;
     private String postalCode;
     private String country;
+    private String permanentAddress;
+    private String permanentCity;
+    private String permanentState;
+    private String permanentPostalCode;
+    private String permanentCountry;
 }
