@@ -3,6 +3,7 @@ package com.devix.employemanagement.services.employeeService;
 import com.devix.employemanagement.Mappers.EmployeeMapper;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
+import com.devix.employemanagement.dtos.EmployeeDto.EmployeeUpdateProfileDto;
 import com.devix.employemanagement.entities.*;
 import com.devix.employemanagement.entities.User.*;
 import com.devix.employemanagement.exceptions.BadRequestException;
@@ -124,6 +125,69 @@ public class EmployeeService {
         EmployeeBankDetails bank = bankRepo.findByEmployee(emp).orElse(null);
         EmployeeEmploymentDetails employment = employmentRepo.findByEmployee(emp).orElse(null);
 
+        return employeeMapper.toDto(emp, address, bank, emergency, employment, personal);
+    }
+
+
+    @Transactional
+    public EmployeeResponseDto updateProfile(EmployeeUpdateProfileDto dto) {
+
+        Employee emp = employeeRepository.findById(dto.getEmployeeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        // ✅ 1. Update Employee (ONLY allowed fields)
+        emp.setFullName(dto.getFullName());
+        emp = employeeRepository.save(emp);
+
+        // ✅ 2. Personal Details
+        EmployeePersonalDetails personal = personalRepo.findByEmployee(emp)
+                .orElse(new EmployeePersonalDetails());
+
+        personal.setEmployee(emp);
+        personal.setPersonalEmail(dto.getPersonalEmail());
+        personal.setAlternateMobileNumber(dto.getAlternateMobileNumber());
+        personal.setGender(dto.getGender());
+        personal.setMaritalStatus(dto.getMaritalStatus());
+        personal.setBloodGroup(dto.getBloodGroup());
+
+        personal = personalRepo.save(personal);
+
+        // ✅ 3. Address
+        EmployeeAddress address = addressRepo.findByEmployee(emp)
+                .orElse(new EmployeeAddress());
+
+        address.setEmployee(emp);
+        address.setAddress(dto.getAddress());
+        address.setCity(dto.getCity());
+        address.setState(dto.getState());
+        address.setPostalCode(dto.getPostalCode());
+        address.setCountry(dto.getCountry());
+
+        // Permanent
+        address.setPermanentAddress(dto.getPermanentAddress());
+        address.setPermanentCity(dto.getPermanentCity());
+        address.setPermanentState(dto.getPermanentState());
+        address.setPermanentPostalCode(dto.getPermanentPostalCode());
+        address.setPermanentCountry(dto.getPermanentCountry());
+
+        address = addressRepo.save(address);
+
+        // ✅ 4. Emergency Contact
+        EmployeeEmergencyContact emergency = emergencyRepo.findByEmployee(emp)
+                .orElse(new EmployeeEmergencyContact());
+
+        emergency.setEmployee(emp);
+        emergency.setName(dto.getEmergencyName());
+        emergency.setPhone(dto.getEmergencyPhone());
+        emergency.setRelation(dto.getEmergencyRelation());
+
+        emergency = emergencyRepo.save(emergency);
+
+        // ✅ 5. Fetch other existing data
+        EmployeeBankDetails bank = bankRepo.findByEmployee(emp).orElse(null);
+        EmployeeEmploymentDetails employment = employmentRepo.findByEmployee(emp).orElse(null);
+
+        // ✅ 6. Return updated response
         return employeeMapper.toDto(emp, address, bank, emergency, employment, personal);
     }
 

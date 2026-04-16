@@ -13,8 +13,8 @@ public class LeaveBalanceScheduler {
     private final LeaveAllocationService leaveAllocationService;
 
     // Runs every year on 1 January at 00:00
-    @Scheduled(cron = "0 */1 * * * *") // every 1 minute
-   // @Scheduled(cron = "0 0 0 1 1 *")
+  //  @Scheduled(cron = "0 */1 * * * *") // every 1 minute
+    @Scheduled(cron = "0 0 0 1 1 *")
     public void runYearlyLeaveAllocation() {
 
         int currentYear = LocalDate.now().getYear();

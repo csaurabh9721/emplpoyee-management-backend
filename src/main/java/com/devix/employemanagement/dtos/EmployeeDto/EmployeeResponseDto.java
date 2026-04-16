@@ -1,7 +1,7 @@
 package com.devix.employemanagement.dtos.EmployeeDto;
 
 import com.devix.employemanagement.entities.Designation;
-import com.devix.employemanagement.utils.EmploymentType;
+import com.devix.employemanagement.utils.enums.EmploymentType;
 import lombok.*;
 
 import java.time.LocalDate;

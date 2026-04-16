@@ -1,4 +1,4 @@
-package com.devix.employemanagement.utils;
+package com.devix.employemanagement.utils.enums;
 
 public enum EmploymentType {
     FULL_TIME,

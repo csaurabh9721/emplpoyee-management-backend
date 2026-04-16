@@ -3,6 +3,7 @@ package com.devix.employemanagement.controllers;
 import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
 import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
+import com.devix.employemanagement.dtos.EmployeeDto.EmployeeUpdateProfileDto;
 import com.devix.employemanagement.services.employeeService.EmployeeService;
 import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +56,14 @@ public class EmployeeController {
         return ResponseEntity.ok(
                 new ApiResponse<>(200, "Employee deleted successfully", null)
         );
+    }
+
+    @PutMapping("/update-profile")
+    public ResponseEntity<ApiResponse<EmployeeResponseDto>> updateProfile(
+            @RequestBody EmployeeUpdateProfileDto dto) {
+
+        EmployeeResponseDto response = employeeService.updateProfile(dto);
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Employee updated successfully", response));
     }
 }

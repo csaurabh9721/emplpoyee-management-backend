@@ -4,7 +4,7 @@ package com.devix.employemanagement.entities.User;
 import com.devix.employemanagement.entities.Designation;
 import com.devix.employemanagement.entities.Office;
 import com.devix.employemanagement.entities.Organization;
-import com.devix.employemanagement.utils.EmploymentType;
+import com.devix.employemanagement.utils.enums.EmploymentType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
