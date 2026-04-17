@@ -9,6 +9,7 @@ import com.devix.employemanagement.repo.AttendanceDailyRepository;
 import com.devix.employemanagement.repo.userRepo.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,8 +28,14 @@ public class DashboardService {
         AttendanceDaily attendance = attendanceRepository
                 .findByEmployeeIdAndAttendanceDate(employeeId, LocalDate.now())
                 .orElse(null);
-
-        TodayAttendanceDto todayAttendance = mapper.mapTodayAttendance(attendance);
+        TodayAttendanceDto todayAttendance;
+        if (attendance != null) {
+            todayAttendance = mapper.mapTodayAttendance(attendance);
+        } else {
+            todayAttendance = new TodayAttendanceDto(
+                    LocalDate.now(), null, null, null
+            );
+        }
 
 
         return DashboardResponseDto.builder()

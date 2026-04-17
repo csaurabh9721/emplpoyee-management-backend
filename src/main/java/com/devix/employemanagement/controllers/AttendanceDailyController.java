@@ -1,8 +1,10 @@
 package com.devix.employemanagement.controllers;
+
 import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyRequestDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyResponseDto;
 import com.devix.employemanagement.services.AttendanceService.AttendanceDailyService;
+import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +29,12 @@ public class AttendanceDailyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/getAttendanceByEmployeeId/{employeeId}")
+    //@GetMapping("/getAttendanceByEmployeeId/{employeeId}")
+    @GetMapping("/getAttendanceByEmployeeId")
     public ResponseEntity<ApiResponse<List<AttendanceDailyResponseDto>>> getAttendanceByEmployee(
-            @PathVariable Long employeeId
+          //  @PathVariable Long employeeId
     ) {
-        List<AttendanceDailyResponseDto> responseDto = attendanceService.getAttendanceByEmployee(employeeId);
+        List<AttendanceDailyResponseDto> responseDto = attendanceService.getAttendanceByEmployee(SecurityUtil.getCurrentEmployeeId());
         ApiResponse<List<AttendanceDailyResponseDto>> response = new ApiResponse<>(200, "Fetched Success.", responseDto);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
