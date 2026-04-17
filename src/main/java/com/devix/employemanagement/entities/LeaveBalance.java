@@ -1,5 +1,7 @@
 package com.devix.employemanagement.entities;
 
+import com.devix.employemanagement.entities.User.Employee;
+import com.devix.employemanagement.utils.enums.LeaveType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,7 +1,7 @@
 package com.devix.employemanagement.config;
 
 import com.devix.employemanagement.utils.Constants;
-import com.devix.employemanagement.utils.JwtAuthFilter;
+import com.devix.employemanagement.utils.security.JwtAuthFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

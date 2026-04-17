@@ -1,6 +1,6 @@
-package com.devix.employemanagement.repo;
+package com.devix.employemanagement.repo.userRepo;
 
-import com.devix.employemanagement.entities.User;
+import com.devix.employemanagement.entities.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,9 @@
 package com.devix.employemanagement.services.leaveBalanceService;
 
-import com.devix.employemanagement.entities.Employee;
+import com.devix.employemanagement.entities.User.Employee;
 import com.devix.employemanagement.entities.LeaveBalance;
-import com.devix.employemanagement.entities.LeaveType;
-import com.devix.employemanagement.repo.EmployeeRepository;
+import com.devix.employemanagement.utils.enums.LeaveType;
+import com.devix.employemanagement.repo.userRepo.EmployeeRepository;
 import com.devix.employemanagement.repo.LeaveBalanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,11 +49,16 @@ public class LeaveAllocationService {
     }
 
     private int getDefaultLeave(LeaveType type) {
-        return switch (type) {
-            case EL -> 15;
-            case CL -> 10;
-            case RH -> 12;
-        };
+        switch (type) {
+            case EL:
+                return 15;
+            case CL:
+                return 10;
+            case RH:
+                return 12;
+            default:
+                throw new IllegalArgumentException("Unknown leave type: " + type);
+        }
     }
 }
 

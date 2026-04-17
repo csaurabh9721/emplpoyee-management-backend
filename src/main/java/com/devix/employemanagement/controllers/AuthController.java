@@ -6,8 +6,6 @@ import com.devix.employemanagement.dtos.authDto.LoginRequest;
 import com.devix.employemanagement.dtos.authDto.LoginResponse;
 import com.devix.employemanagement.dtos.authDto.RefreshTokenRequest;
 import com.devix.employemanagement.dtos.authDto.RefreshTokenResponse;
-import com.devix.employemanagement.entities.Employee;
-import com.devix.employemanagement.repo.EmployeeRepository;
 import com.devix.employemanagement.services.authService.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
 package com.devix.employemanagement.entities;
 
+import com.devix.employemanagement.entities.User.Employee;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;

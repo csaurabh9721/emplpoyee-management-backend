@@ -1,10 +1,11 @@
 package com.devix.employemanagement.controllers;
 
 import com.devix.employemanagement.dtos.ApiResponse;
-import com.devix.employemanagement.dtos.EmployeeDto.EmployeeRequestDto;
-import com.devix.employemanagement.dtos.EmployeeDto.EmployeeResponseDto;
+import com.devix.employemanagement.dtos.EmployeeDto.requestDto.EmployeeCreateDto;
+import com.devix.employemanagement.dtos.EmployeeDto.responseDto.EmployeeResponseDto;
+import com.devix.employemanagement.dtos.EmployeeDto.requestDto.EmployeeUpdateProfileDto;
 import com.devix.employemanagement.services.employeeService.EmployeeService;
-import com.devix.employemanagement.utils.SecurityUtil;
+import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +22,15 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<EmployeeResponseDto>> create(
-            @RequestBody EmployeeRequestDto dto) {
+            @RequestBody EmployeeCreateDto dto) {
 
         EmployeeResponseDto response = employeeService.create(dto);
 
         return ResponseEntity.ok(
                 new ApiResponse<>(200, "Employee created successfully", response)
-        );
-    }
-
-    @GetMapping("/getEmployeeProfile")
-    public ResponseEntity<ApiResponse<EmployeeResponseDto>> getById() {
-        return ResponseEntity.ok(
-                new ApiResponse<>(200, "Employee fetched successfully",
-                        employeeService.getById(SecurityUtil.getCurrentEmployeeId()))
         );
     }
 
@@ -49,11 +43,29 @@ public class EmployeeController {
         );
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         employeeService.delete(id);
         return ResponseEntity.ok(
                 new ApiResponse<>(200, "Employee deleted successfully", null)
         );
+    }
+
+    @GetMapping("/getEmployeeProfile")
+    public ResponseEntity<ApiResponse<EmployeeResponseDto>> getById() {
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Employee fetched successfully",
+                        employeeService.getById(SecurityUtil.getCurrentEmployeeId()))
+        );
+    }
+
+    @PutMapping("/update-profile")
+    public ResponseEntity<ApiResponse<EmployeeResponseDto>> updateProfile(
+            @RequestBody EmployeeUpdateProfileDto dto) {
+
+        EmployeeResponseDto response = employeeService.updateProfile(dto);
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Employee updated successfully", response));
     }
 }
