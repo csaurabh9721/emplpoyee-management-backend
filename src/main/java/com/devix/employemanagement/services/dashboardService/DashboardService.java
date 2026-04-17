@@ -1,0 +1,44 @@
+package com.devix.employemanagement.services.dashboardService;
+
+import com.devix.employemanagement.Mappers.dashboardMapper.DashboardMapper;
+import com.devix.employemanagement.dtos.dashboardDto.DashboardResponseDto;
+import com.devix.employemanagement.dtos.dashboardDto.TodayAttendanceDto;
+import com.devix.employemanagement.entities.AttendanceDaily;
+import com.devix.employemanagement.entities.User.Employee;
+import com.devix.employemanagement.repo.AttendanceDailyRepository;
+import com.devix.employemanagement.repo.userRepo.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+@Service
+@RequiredArgsConstructor
+public class DashboardService {
+
+    private final EmployeeRepository employeeRepository;
+    private final AttendanceDailyRepository attendanceRepository;
+    private final DashboardMapper mapper;
+
+    public DashboardResponseDto getDashboard(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        Long orgId = employee.getOrganization().getId();
+        AttendanceDaily attendance = attendanceRepository
+                .findByEmployeeIdAndAttendanceDate(employeeId, LocalDate.now())
+                .orElse(null);
+
+        TodayAttendanceDto todayAttendance = mapper.mapTodayAttendance(attendance);
+
+
+        return DashboardResponseDto.builder()
+                .employeeId(employee.getId())
+                .organizationId(orgId)
+                .employeeName(employee.getFullName())
+                .designationName(employee.getDesignation().getDescription())
+                .image(employee.getProfileImageUrl()) // adjust field name
+                .todayAttendance(todayAttendance)
+                .announcements(new ArrayList<>())
+                .build();
+    }
+}

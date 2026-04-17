@@ -1,4 +1,5 @@
-package com.devix.employemanagement.utils;
+package com.devix.employemanagement.utils.security;
+import com.devix.employemanagement.utils.security.JwtUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
