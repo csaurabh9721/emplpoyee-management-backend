@@ -23,6 +23,7 @@ public class AttendanceDailyMapper {
                 .punchInTime(entity.getPunchInTime())
                 .punchOutTime(entity.getPunchOutTime())
                 .workHour(formatted)
+                .status(entity.getStatus())
                 .build();
     }
 }

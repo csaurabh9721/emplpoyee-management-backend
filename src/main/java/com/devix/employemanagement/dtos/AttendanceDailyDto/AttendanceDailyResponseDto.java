@@ -1,5 +1,7 @@
 package com.devix.employemanagement.dtos.AttendanceDailyDto;
+
 import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,5 +19,6 @@ public class AttendanceDailyResponseDto {
     private LocalDate attendanceDate;
     private LocalDateTime punchInTime;
     private LocalDateTime punchOutTime;
+    private String status;
     private String workHour;
 }

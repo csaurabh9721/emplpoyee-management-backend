@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -20,5 +21,12 @@ public interface HolidayYearRepository extends JpaRepository<Holiday, Long> {
     List<Holiday> findByOfficeIdAndYear(
             @Param("officeId") Long officeId,
             @Param("year") int year
+    );
+
+    @Query("SELECT h FROM Holiday h " +
+            "WHERE h.date BETWEEN :startDate AND :endDate")
+    List<Holiday> findByDateBetween(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
     );
 }

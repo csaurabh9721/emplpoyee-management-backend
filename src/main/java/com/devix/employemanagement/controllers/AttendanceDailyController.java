@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class AttendanceDailyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    //@GetMapping("/getAttendanceByEmployeeId/{employeeId}")
-    @GetMapping("/getAttendanceByEmployeeId")
+    @GetMapping("/getAttendanceByDateRange")
     public ResponseEntity<ApiResponse<List<AttendanceDailyResponseDto>>> getAttendanceByEmployee(
-          //  @PathVariable Long employeeId
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate
     ) {
-        List<AttendanceDailyResponseDto> responseDto = attendanceService.getAttendanceByEmployee(SecurityUtil.getCurrentEmployeeId());
+        List<AttendanceDailyResponseDto> responseDto = attendanceService.getAttendanceByEmployeeAndDateRange(SecurityUtil.getCurrentEmployeeId(), startDate, endDate);
         ApiResponse<List<AttendanceDailyResponseDto>> response = new ApiResponse<>(200, "Fetched Success.", responseDto);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
