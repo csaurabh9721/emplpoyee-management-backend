@@ -12,6 +12,7 @@ public class DashboardResponseDto {
 
     private Long employeeId;
     private Long organizationId;
+    private Long officeId;
 
     private String employeeName;
     private String designationName;

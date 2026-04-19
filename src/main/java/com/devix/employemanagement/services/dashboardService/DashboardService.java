@@ -25,6 +25,7 @@ public class DashboardService {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("Employee not found"));
 
         Long orgId = employee.getOrganization().getId();
+        Long officeId = employee.getPrimaryOffice().getId();
         AttendanceDaily attendance = attendanceRepository
                 .findByEmployeeIdAndAttendanceDate(employeeId, LocalDate.now())
                 .orElse(null);
@@ -41,6 +42,7 @@ public class DashboardService {
         return DashboardResponseDto.builder()
                 .employeeId(employee.getId())
                 .organizationId(orgId)
+                .officeId(officeId)
                 .employeeName(employee.getFullName())
                 .designationName(employee.getDesignation().getDescription())
                 .image(employee.getProfileImageUrl()) // adjust field name
