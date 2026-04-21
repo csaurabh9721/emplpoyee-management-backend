@@ -21,6 +21,7 @@ public class LeaveRequestMapper {
                 .endDate(dto.getEndDate())
                 .totalDays(calculateDays(dto.getStartDate(), dto.getEndDate()))
                 .reason(dto.getReason())
+                .approvedBy(employee.getManagerId())
                 .build();
     }
 
