@@ -1,4 +1,4 @@
-package com.devix.employemanagement.dtos.leaveBalanceDto;
+package com.devix.employemanagement.dtos.leaveDtos;
 
 import com.devix.employemanagement.utils.enums.LeaveType;
 import lombok.*;
@@ -8,15 +8,22 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LeaveBalanceRequestDto {
+public class LeaveBalanceResponseDto {
 
-    private Long employeeId;
+    private Long id;
 
     private LeaveType leaveType;
+
 
     private Integer totalAllowed;
 
     private Integer used;
 
+    private Integer remaining;
+
     private Integer year;
+    private String leaveTypeFullName;
+
+
 }
+

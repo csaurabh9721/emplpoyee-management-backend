@@ -1,8 +1,9 @@
 package com.devix.employemanagement.controllers;
 
 import com.devix.employemanagement.dtos.ApiResponse;
-import com.devix.employemanagement.dtos.leaveBalanceDto.LeaveBalanceResponseDto;
+import com.devix.employemanagement.dtos.leaveDtos.LeaveBalanceResponseDto;
 import com.devix.employemanagement.services.leaveBalanceService.LeaveBalanceService;
+import com.devix.employemanagement.utils.enums.LeaveType;
 import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,11 @@ public class LeaveBalanceController {
         Long employeeId = SecurityUtil.getCurrentEmployeeId();
         List<LeaveBalanceResponseDto> leaves = leaveBalanceService.getLeaveBalanceByEmployeeId(employeeId);
         return ResponseEntity.ok(new ApiResponse<>(200, "Leave Balance fetched successfully", leaves));
+    }
+
+    @GetMapping("/getLeaveType")
+    public ResponseEntity<ApiResponse<List<LeaveType>>> getLeaveTypes() {
+        List<LeaveType> types = leaveBalanceService.getLeaveTypes();
+        return ResponseEntity.ok(new ApiResponse<>(200, "Leave types fetched successfully", types));
     }
 }

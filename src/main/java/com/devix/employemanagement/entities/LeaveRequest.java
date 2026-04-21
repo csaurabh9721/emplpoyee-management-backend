@@ -1,6 +1,7 @@
 package com.devix.employemanagement.entities;
 
 import com.devix.employemanagement.entities.User.Employee;
+import com.devix.employemanagement.utils.enums.LeaveStatus;
 import com.devix.employemanagement.utils.enums.LeaveType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,11 +43,13 @@ public class LeaveRequest {
     @Column(nullable = false)
     private Integer totalDays;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status;
+    private LeaveStatus status;
     // PENDING / APPROVED / REJECTED / CANCELLED
 
     private String reason;
+    private Long approvedBy;
 
     /* ================= AUDIT ================= */
 
@@ -56,6 +59,6 @@ public class LeaveRequest {
     @PrePersist
     public void prePersist() {
         appliedAt = LocalDateTime.now();
-        status = "PENDING";
+        status = LeaveStatus.PENDING;
     }
 }

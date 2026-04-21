@@ -1,18 +1,14 @@
-package com.devix.employemanagement.dtos.leaveBalanceDto;
+package com.devix.employemanagement.dtos.leaveDtos;
 
 import com.devix.employemanagement.utils.enums.LeaveType;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LeaveBalanceResponseDto {
-
-    private Long id;
+public class LeaveBalanceRequestDto {
 
     private Long employeeId;
 
@@ -22,12 +18,5 @@ public class LeaveBalanceResponseDto {
 
     private Integer used;
 
-    private Integer remaining;
-
     private Integer year;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 }
-
