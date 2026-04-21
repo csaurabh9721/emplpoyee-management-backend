@@ -39,6 +39,18 @@ public class LeaveRequestService {
                 .map(mapper::toDto)
                 .toList();
     }
+    public List<LeaveRequestResponseDto> getAllLeavesByEmployeeId(Long employeeId) {
+        return leaveRepository.findByEmployeeId(employeeId)
+                .stream()
+                .map(mapper::toDto)
+                .toList().reversed();
+    }
+    public List<LeaveRequestResponseDto> getAllLeavesByApprovedBy(Long approvalId) {
+        return leaveRepository.findByApprovedBy(approvalId)
+                .stream()
+                .map(mapper::toDto)
+                .toList();
+    }
 
     /* ================= APPROVE / REJECT ================= */
     public LeaveRequestResponseDto updateStatus(Long id, LeaveStatus status) {

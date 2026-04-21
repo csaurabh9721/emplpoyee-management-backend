@@ -5,7 +5,9 @@ import com.devix.employemanagement.dtos.leaveDtos.LeaveRequestCreateDto;
 import com.devix.employemanagement.dtos.leaveDtos.LeaveRequestResponseDto;
 import com.devix.employemanagement.services.LeaveRequestService;
 import com.devix.employemanagement.utils.enums.LeaveStatus;
+import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +30,22 @@ public class LeaveRequestController {
     }
 
     /* ================= GET ALL ================= */
-    @GetMapping
+
+    @GetMapping()
     public ResponseEntity<ApiResponse<List<LeaveRequestResponseDto>>> getAll() {
         return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Fetched Successfully.", service.getAllLeaves()));
     }
+
+    @GetMapping("/getLeaveForEmployee")
+    public ResponseEntity<ApiResponse<List<LeaveRequestResponseDto>>> getAllForEmployee() {
+        return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Fetched Successfully.", service.getAllLeavesByEmployeeId(SecurityUtil.getCurrentEmployeeId())));
+    }
+
+    @GetMapping("/getLeaveForApproval")
+    public ResponseEntity<ApiResponse<List<LeaveRequestResponseDto>>> getAllForApproval() {
+        return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Fetched Successfully.", service.getAllLeavesByApprovedBy(SecurityUtil.getCurrentEmployeeId())));
+    }
+
 
     /* ================= APPROVE ================= */
     @PutMapping("/{id}/approve")
