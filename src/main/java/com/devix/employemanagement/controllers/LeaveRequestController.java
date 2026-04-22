@@ -48,14 +48,21 @@ public class LeaveRequestController {
 
 
     /* ================= APPROVE ================= */
-    @PutMapping("/{id}/approve")
+    @PutMapping("/approve/{id}")
     public ResponseEntity<ApiResponse<LeaveRequestResponseDto>> approve(@PathVariable Long id) {
         return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Approve Successfully.", service.updateStatus(id, LeaveStatus.APPROVED)));
     }
 
     /* ================= REJECT ================= */
-    @PutMapping("/{id}/reject")
+    @PutMapping("/reject/{id}")
     public ResponseEntity<ApiResponse<LeaveRequestResponseDto>> reject(@PathVariable Long id) {
-        return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Approve Successfully.", service.updateStatus(id, LeaveStatus.REJECTED)));
+        return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Reject Successfully.", service.updateStatus(id, LeaveStatus.REJECTED)));
+    }
+
+
+    /* ================= Withdrawn ================= */
+    @PutMapping("/Withdrawn/{id}")
+    public ResponseEntity<ApiResponse<LeaveRequestResponseDto>> Withdrawn(@PathVariable Long id) {
+        return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Withdrawn Successfully.", service.withdrawnLeave(id)));
     }
 }

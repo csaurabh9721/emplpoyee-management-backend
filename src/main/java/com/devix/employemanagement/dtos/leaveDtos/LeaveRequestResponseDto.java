@@ -15,6 +15,7 @@ public class LeaveRequestResponseDto {
     private Long id;
     private Long employeeId;
     private String employeeName;
+    private String employeeCode;
 
     private LeaveType leaveType;
     private LocalDate startDate;

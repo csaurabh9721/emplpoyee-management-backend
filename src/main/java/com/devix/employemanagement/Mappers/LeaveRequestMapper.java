@@ -29,7 +29,8 @@ public class LeaveRequestMapper {
         return LeaveRequestResponseDto.builder()
                 .id(entity.getId())
                 .employeeId(entity.getEmployee().getId())
-                .employeeName(entity.getEmployee().getFullName()) // adjust field
+                .employeeName(entity.getEmployee().getFullName())
+                .employeeCode(entity.getEmployee().getEmployeeCode())
                 .leaveType(entity.getLeaveType())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
