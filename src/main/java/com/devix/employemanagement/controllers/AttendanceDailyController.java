@@ -3,6 +3,7 @@ package com.devix.employemanagement.controllers;
 import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyRequestDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyResponseDto;
+import com.devix.employemanagement.dtos.AttendanceDailyDto.TeamAttendanceResponseDto;
 import com.devix.employemanagement.services.AttendanceService.AttendanceDailyService;
 import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,17 @@ public class AttendanceDailyController {
     ) {
         List<AttendanceDailyResponseDto> responseDto = attendanceService.getAttendanceByEmployeeAndDateRange(SecurityUtil.getCurrentEmployeeId(), startDate, endDate);
         ApiResponse<List<AttendanceDailyResponseDto>> response = new ApiResponse<>(200, "Fetched Success.", responseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/getAttendanceForMangerByDateRange")
+    public ResponseEntity<ApiResponse<List<TeamAttendanceResponseDto>>> getAttendanceForMangerByDateRange(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate
+    ) {
+        /// todo remove hardcode id 2L
+        List<TeamAttendanceResponseDto> responseDto = attendanceService.getTeamAttendance(2L, startDate, endDate);
+        ApiResponse<List<TeamAttendanceResponseDto>> response = new ApiResponse<>(200, "Fetched Success.", responseDto);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

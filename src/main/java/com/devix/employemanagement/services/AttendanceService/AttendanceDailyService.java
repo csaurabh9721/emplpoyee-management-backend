@@ -3,6 +3,7 @@ package com.devix.employemanagement.services.AttendanceService;
 import com.devix.employemanagement.Mappers.AttendanceDailyMapper;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyRequestDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyResponseDto;
+import com.devix.employemanagement.dtos.AttendanceDailyDto.TeamAttendanceResponseDto;
 import com.devix.employemanagement.entities.AttendanceDaily;
 import com.devix.employemanagement.entities.Holiday;
 import com.devix.employemanagement.entities.Organization;
@@ -152,6 +153,41 @@ public class AttendanceDailyService {
             current = current.plusDays(1);
         }
 
-        return result.reversed();
+        return result;
+    }
+
+
+
+    public List<TeamAttendanceResponseDto> getTeamAttendance(
+            Long managerId,
+            LocalDate startDate,
+            LocalDate endDate) {
+
+        // 1. Get team members
+        List<Employee> employees = employeeRepo.findByManagerId(managerId);
+
+        List<TeamAttendanceResponseDto> response = new ArrayList<>();
+
+        for (Employee emp : employees) {
+
+            // 2. Reuse your existing method ✅
+            List<AttendanceDailyResponseDto> attendance =
+                    getAttendanceByEmployeeAndDateRange(
+                            emp.getId(),
+                            startDate,
+                            endDate
+                    );
+
+            // 3. Build response
+            TeamAttendanceResponseDto dto = new TeamAttendanceResponseDto();
+            dto.setEmployeeId(emp.getId());
+            dto.setEmployeeName(emp.getFullName());
+            dto.setEmployeeCode(emp.getEmployeeCode());
+            dto.setAttendance(attendance);
+
+            response.add(dto);
+        }
+
+        return response;
     }
 }

@@ -50,6 +50,7 @@ public class LeaveRequestService {
     }
 
     public List<LeaveRequestResponseDto> getAllLeavesByApprovedBy(Long approvalId) {
+        /// todo remove hardcode id 2L
         return leaveRepository.findByApprovedByAndStatus(2L, LeaveStatus.PENDING)
                 .stream()
                 .map(mapper::toDto)
