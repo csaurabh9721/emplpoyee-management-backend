@@ -1,7 +1,9 @@
 package com.devix.employemanagement.Mappers;
 
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyResponseDto;
+import com.devix.employemanagement.dtos.AttendanceDailyDto.TeamAttendanceListResponseDto;
 import com.devix.employemanagement.entities.AttendanceDaily;
+import com.devix.employemanagement.entities.User.Employee;
 
 import java.time.Duration;
 
@@ -23,6 +25,20 @@ public class AttendanceDailyMapper {
                 .punchInTime(entity.getPunchInTime())
                 .punchOutTime(entity.getPunchOutTime())
                 .workHour(formatted)
+                .status(entity.getStatus())
+                .build();
+    }
+
+    public static TeamAttendanceListResponseDto toTeamAttendanceListResponseDto(Employee emp, AttendanceDailyResponseDto entity) {
+        return TeamAttendanceListResponseDto.builder()
+                .id(entity.getId())
+                .employeeId(emp.getId())
+                .employeeName(emp.getFullName())
+                .organizationId(emp.getOrganization().getId())
+                .attendanceDate(entity.getAttendanceDate())
+                .punchInTime(entity.getPunchInTime())
+                .punchOutTime(entity.getPunchOutTime())
+                .workHour(entity.getWorkHour())
                 .status(entity.getStatus())
                 .build();
     }
