@@ -7,6 +7,7 @@ import com.devix.employemanagement.dtos.userDto.UserRequestDTO;
 import com.devix.employemanagement.dtos.userDto.UserResponseDto;
 import com.devix.employemanagement.entities.Organization;
 import com.devix.employemanagement.entities.User.User;
+import com.devix.employemanagement.exceptions.BadRequestException;
 import com.devix.employemanagement.repo.OrganizationRepo;
 import com.devix.employemanagement.repo.userRepo.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -64,22 +65,22 @@ public class UserService {
     }
 
 
-    public Boolean changePassword(ChangePasswordRequest dto) {
+    public Boolean changePassword( ChangePasswordRequest dto) {
 
         User user = userRepository.findById(dto.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
+        log.info(dto.getOldPassword());
         log.info(passwordEncoder.encode(dto.getOldPassword()));
         log.info(user.getPasswordHash());
         boolean isMatched = passwordEncoder.matches(
-                passwordEncoder.encode(dto.getOldPassword()),
+                dto.getOldPassword(),
                 user.getPasswordHash()
         );
         if (!isMatched) {
-            throw new RuntimeException("Old password is incorrect");
+            throw new BadRequestException("Old password is incorrect");
         }
         if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
-            throw new RuntimeException("New password and confirm password do not match");
+            throw new BadRequestException("New password and confirm password do not match");
         }
 
         user.setPasswordHash(

@@ -12,10 +12,10 @@ import lombok.NonNull;
 public class ChangePasswordRequest {
     @NonNull
     private Long id;
-    @Size(min = 6)
+    @Size(min = 4)
     private String oldPassword;
-    @Size(min = 6)
+    @Size(min = 4)
     private String newPassword;
-    @Size(min = 6)
+    @Size(min = 4)
     private String confirmPassword;
 }
