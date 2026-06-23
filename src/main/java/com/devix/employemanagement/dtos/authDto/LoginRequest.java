@@ -1,14 +1,12 @@
 package com.devix.employemanagement.dtos.authDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class LoginRequest {
     private String emailId;
     private String password;

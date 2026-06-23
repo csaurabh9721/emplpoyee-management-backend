@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class LeaveBalanceService {
+public class LeaveBalanceService implements ILeaveBalanceService {
     private final LeaveBalanceRepository leaveBalanceRepository;
     private final LeaveBalanceMapper leaveBalanceMapper;
 

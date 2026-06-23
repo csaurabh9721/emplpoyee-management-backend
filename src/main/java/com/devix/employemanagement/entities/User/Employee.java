@@ -61,6 +61,21 @@ public class Employee {
     @Column(nullable = false)
     private String status; // ACTIVE / INACTIVE
 
+    @OneToOne(mappedBy = "employee")
+    private EmployeePersonalDetails personalDetails;
+
+    @OneToOne(mappedBy = "employee")
+    private EmployeeAddress address;
+
+    @OneToOne(mappedBy = "employee")
+    private EmployeeEmergencyContact emergencyContact;
+
+    @OneToOne(mappedBy = "employee")
+    private EmployeeBankDetails bankDetails;
+
+    @OneToOne(mappedBy = "employee")
+    private EmployeeEmploymentDetails employmentDetails;
+
     private LocalDateTime createdAt;
 
     @PrePersist

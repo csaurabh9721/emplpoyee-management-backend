@@ -58,6 +58,42 @@ public class EmployeeMapper {
                 .build();
     }
 
+    public EmployeeResponseDto toDto(
+            Employee emp
+    ) {
+
+        if (emp == null) return null;
+
+        return EmployeeResponseDto.builder()
+                .id(emp.getId())
+                .employeeCode(emp.getEmployeeCode())
+                .fullName(emp.getFullName())
+                .designation(emp.getDesignation())
+                .department(emp.getDepartment())
+                .profileImageUrl(emp.getProfileImageUrl())
+                .joiningDate(emp.getJoiningDate())
+                .status(emp.getStatus())
+
+                // 🔹 Safe nested mapping
+                .userId(getSafe(emp.getUser(), User::getId))
+                .phone(getSafe(emp.getUser(), User::getMobile))
+                .organizationId(getSafe(emp.getOrganization(), Organization::getId))
+                .organizationName(getSafe(emp.getOrganization(), Organization::getName))
+                .primaryOfficeId(getSafe(emp.getPrimaryOffice(), Office::getId))
+                .primaryOfficeName(getSafe(emp.getPrimaryOffice(), Office::getName))
+
+                // 🔹 Related data mapping
+                .employeeAddress(mapIfNotNull(emp.getAddress(), this::toAddressDto))
+                .employeeBankDetails(mapIfNotNull(emp.getBankDetails(), this::toBankDto))
+                .emergencyContact(mapIfNotNull(emp.getEmergencyContact(), this::toEmergencyDto))
+                .employeeEmploymentDetails(mapIfNotNull(emp.getEmploymentDetails(), this::toEmploymentDto))
+                .personalDetails(mapIfNotNull(emp.getPersonalDetails(), this::toPersonalDto))
+                .employmentType(emp.getEmploymentType())
+                .managerId(emp.getManagerId())
+                .managerName(emp.getManagerName())
+                .build();
+    }
+
     // =========================================================
     // 🔹 HELPER METHODS (CLEAN + REUSABLE)
     // =========================================================

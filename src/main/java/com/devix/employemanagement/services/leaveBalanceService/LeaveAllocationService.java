@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LeaveAllocationService {
+public class LeaveAllocationService implements ILeaveAllocationService {
 
     private final EmployeeRepository employeeRepository;
     private final LeaveBalanceRepository leaveBalanceRepository;

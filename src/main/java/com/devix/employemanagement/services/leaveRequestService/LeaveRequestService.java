@@ -1,4 +1,4 @@
-package com.devix.employemanagement.services;
+package com.devix.employemanagement.services.leaveRequestService;
 
 import com.devix.employemanagement.Mappers.LeaveRequestMapper;
 import com.devix.employemanagement.dtos.holidayDtos.HolidayResponseDTO;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class LeaveRequestService {
+public class LeaveRequestService implements ILeaveRequestService {
 
     private final LeaveRequestRepository leaveRepository;
     private final EmployeeRepository employeeRepository;

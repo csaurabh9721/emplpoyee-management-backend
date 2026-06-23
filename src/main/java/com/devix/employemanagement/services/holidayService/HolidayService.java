@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class HolidayService  {
+public class HolidayService implements IHolidayService {
 
     private final HolidayYearRepository holidayYearRepository;
 

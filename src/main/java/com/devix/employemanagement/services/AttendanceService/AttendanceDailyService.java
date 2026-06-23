@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class AttendanceDailyService {
+public class AttendanceDailyService implements IAttendanceDailyService {
 
     private final AttendanceDailyRepository attendanceRepo;
     private final EmployeeRepository employeeRepo;
@@ -37,6 +37,7 @@ public class AttendanceDailyService {
     private final HolidayYearRepository holidayYearRepository;
 
     @Transactional
+    @Override
     public AttendanceDailyResponseDto markAttendance(AttendanceDailyRequestDto request) {
 
         Employee employee = employeeRepo.findById(request.getEmployeeId())
@@ -88,7 +89,7 @@ public class AttendanceDailyService {
         return AttendanceDailyMapper.toDto(saved);
     }
 
-
+    @Override
     public List<AttendanceDailyResponseDto> getAttendanceByEmployeeAndDateRange(
             Long employeeId,
             LocalDate startDate,
@@ -157,7 +158,7 @@ public class AttendanceDailyService {
     }
 
 
-
+    @Override
     public List<TeamAttendanceResponseDto> getTeamAttendance(
             Long managerId,
             LocalDate startDate,

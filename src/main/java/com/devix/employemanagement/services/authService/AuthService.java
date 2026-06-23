@@ -18,14 +18,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AuthService {
+public class AuthService implements IAuthService {
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+    @Override
     public LoginResponse login(LoginRequest loginRequest) {
-        User user = userRepository.findByEmail(loginRequest.getEmailId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        log.info("Login Request: {}", loginRequest);
+        User user = userRepository.findByEmail(loginRequest.getEmailId()).orElseThrow(() -> new ResourceNotFoundException("User not foundwewww"));
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPasswordHash())) {
             throw new BadRequestException("Wrong password");
         }
@@ -35,6 +37,7 @@ public class AuthService {
         return LoginResponse.builder().userId(user.getId()).employeeCode(employee.getEmployeeCode()).employeeName(employee.getFullName()).accessToken(accessToken).refreshToken(refreshToken).build();
     }
 
+    @Override
     public RefreshTokenResponse refreshToken(String refreshToken) {
 
         if (!jwtUtil.isTokenValid(refreshToken)) {

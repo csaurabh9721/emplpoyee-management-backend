@@ -15,12 +15,13 @@ import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
-public class DashboardService {
+public class DashboardService implements IDashboardService {
 
     private final EmployeeRepository employeeRepository;
     private final AttendanceDailyRepository attendanceRepository;
     private final DashboardMapper mapper;
 
+    @Override
     public DashboardResponseDto getDashboard(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("Employee not found"));
 
