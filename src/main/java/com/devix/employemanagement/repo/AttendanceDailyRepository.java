@@ -29,4 +29,12 @@ public interface AttendanceDailyRepository extends JpaRepository<AttendanceDaily
             @Param("endDate") LocalDate endDate
     );
 
+    @Query("SELECT a FROM AttendanceDaily a " +
+            "WHERE a.employee.id = :employeeId " +
+            "AND a.attendanceDate BETWEEN :startDate AND :endDate")
+    List<AttendanceDaily> findByManagerIdAndAttendanceDateBetween(
+            @Param("employeeId") Long employeeId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
+    );
 }

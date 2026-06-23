@@ -8,6 +8,7 @@ import com.devix.employemanagement.utils.enums.LeaveStatus;
 import com.devix.employemanagement.utils.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class LeaveRequestController {
     }
 
     /* ================= GET ALL ================= */
-
-    @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/getALL")
     public ResponseEntity<ApiResponse<List<LeaveRequestResponseDto>>> getAll() {
         return ResponseEntity.ok(new ApiResponse<>(201, "Leaved Fetched Successfully.", service.getAllLeaves()));
     }

@@ -3,6 +3,7 @@ package com.devix.employemanagement.services.AttendanceService;
 import com.devix.employemanagement.Mappers.AttendanceDailyMapper;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyRequestDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyResponseDto;
+import com.devix.employemanagement.dtos.AttendanceDailyDto.TeamAttendanceListResponseDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.TeamAttendanceResponseDto;
 import com.devix.employemanagement.entities.AttendanceDaily;
 import com.devix.employemanagement.entities.Holiday;
@@ -21,10 +22,7 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -163,32 +161,36 @@ public class AttendanceDailyService implements IAttendanceDailyService {
             Long managerId,
             LocalDate startDate,
             LocalDate endDate) {
-
-        // 1. Get team members
         List<Employee> employees = employeeRepo.findByManagerId(managerId);
 
-        List<TeamAttendanceResponseDto> response = new ArrayList<>();
-
+        Map<LocalDate, List<TeamAttendanceListResponseDto>> attendanceMap = new HashMap<>();
         for (Employee emp : employees) {
-
-            // 2. Reuse your existing method ✅
             List<AttendanceDailyResponseDto> attendance =
                     getAttendanceByEmployeeAndDateRange(
                             emp.getId(),
                             startDate,
                             endDate
                     );
-
-            // 3. Build response
-            TeamAttendanceResponseDto dto = new TeamAttendanceResponseDto();
-            dto.setEmployeeId(emp.getId());
-            dto.setEmployeeName(emp.getFullName());
-            dto.setEmployeeCode(emp.getEmployeeCode());
-            dto.setAttendance(attendance);
-
-            response.add(dto);
+            for (AttendanceDailyResponseDto at : attendance) {
+                attendanceMap
+                        .computeIfAbsent(at.getAttendanceDate(), k -> new ArrayList<>())
+                        .add(AttendanceDailyMapper.toTeamAttendanceListResponseDto(emp, at));
+            }
         }
+        return attendanceMap.entrySet()
+                .stream()
+                .map(entry -> {
+                    TeamAttendanceResponseDto responseDto =
+                            new TeamAttendanceResponseDto();
+                    responseDto.setAttendanceDate(entry.getKey());
+                    responseDto.setAttendanceList(entry.getValue());
 
-        return response;
+                    return responseDto;
+                })
+                .sorted(Comparator.comparing(
+                        TeamAttendanceResponseDto::getAttendanceDate))
+                .toList();
     }
+
+
 }
