@@ -51,6 +51,7 @@ public class UserService implements IUserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public UserResponseDto updateUser(Long id, UpdateUserRequest dto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));

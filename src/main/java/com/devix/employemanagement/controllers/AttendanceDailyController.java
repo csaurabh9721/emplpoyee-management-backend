@@ -3,9 +3,8 @@ import com.devix.employemanagement.dtos.ApiResponse;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyRequestDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.AttendanceDailyResponseDto;
 import com.devix.employemanagement.dtos.AttendanceDailyDto.TeamAttendanceResponseDto;
-import com.devix.employemanagement.services.AttendanceService.AttendanceDailyService;
+import com.devix.employemanagement.services.AttendanceService.IAttendanceDailyService;
 import com.devix.employemanagement.utils.security.SecurityUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/attendance")
-@RequiredArgsConstructor
 public class AttendanceDailyController {
 
-    private final AttendanceDailyService attendanceService;
+    private final IAttendanceDailyService attendanceService;
+
+    public AttendanceDailyController(IAttendanceDailyService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
 
     @PostMapping("/punchInOut")
     public ResponseEntity<ApiResponse<AttendanceDailyResponseDto>> markAttendance(

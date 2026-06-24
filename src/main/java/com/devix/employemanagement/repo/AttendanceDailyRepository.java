@@ -14,7 +14,10 @@ import java.util.Optional;
 @Repository
 public interface AttendanceDailyRepository extends JpaRepository<AttendanceDaily, Long> {
     // Add custom query methods if needed
+
     List<AttendanceDaily> findByEmployeeId(Long employeeId);
+
+
     Optional<AttendanceDaily> findByEmployeeIdAndAttendanceDate(
             Long employeeId,
             LocalDate attendanceDate

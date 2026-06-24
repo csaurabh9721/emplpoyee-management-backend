@@ -1,5 +1,6 @@
 package com.devix.employemanagement.services.UserService;
 
+import com.devix.employemanagement.dtos.userDto.UpdateUserRequest;
 import com.devix.employemanagement.dtos.userDto.UserRequestDTO;
 import com.devix.employemanagement.dtos.userDto.UserResponseDto;
 
@@ -13,7 +14,7 @@ public interface IUserService {
 
     List<UserResponseDto> getAllUsers();
 
-    UserResponseDto updateUser(Long id, UserRequestDTO dto);
+    UserResponseDto updateUser(Long id, UpdateUserRequest dto);
 
     void deleteUser(Long id);
 }
