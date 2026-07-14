@@ -2,6 +2,9 @@ version: "3.9"
 
 services:
 
+  # ==========================
+  # MySQL Database
+  # ==========================
   mysql:
     image: mysql:8.4
     container_name: employee-mysql
@@ -19,6 +22,31 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
+    networks:
+      - employee-network
+
+  # ==========================
+  # Redis Cache
+  # ==========================
+  redis:
+    image: redis:7.2
+    container_name: employee-redis
+    restart: always
+
+    command: redis-server --appendonly yes
+
+    ports:
+      - "6379:6379"
+
+    volumes:
+      - redis-data:/data
+
+    networks:
+      - employee-network
+
+  # ==========================
+  # Spring Boot Instance 1
+  # ==========================
   app1:
     build: .
     container_name: employee-api-1
@@ -26,6 +54,7 @@ services:
 
     depends_on:
       - mysql
+      - redis
 
     ports:
       - "8080:8080"
@@ -35,35 +64,52 @@ services:
       SPRING_DATASOURCE_USERNAME: employee
       SPRING_DATASOURCE_PASSWORD: employee
 
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+
       INSTANCE_NAME: APP-1
 
-  app2:
-    build: .
-    container_name: employee-api-2
-    restart: always
+    networks:
+      - employee-network
 
-    depends_on:
-      - mysql
+  # ==========================
+  # Spring Boot Instance 2
+  # ==========================
+#  app2:
+#    build: .
+#    container_name: employee-api-2
+#    restart: always
+#
+#    depends_on:
+#      - mysql
+#      - redis
+#
+#    ports:
+#      - "8081:8080"
+#
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeemanagementdb
+#      SPRING_DATASOURCE_USERNAME: employee
+#      SPRING_DATASOURCE_PASSWORD: employee
+#
+#      SPRING_DATA_REDIS_HOST: redis
+#      SPRING_DATA_REDIS_PORT: 6379
+#
+#      INSTANCE_NAME: APP-2
+#
+#    networks:
+#      - employee-network
 
-    ports:
-      - "8081:8080"
-
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeemanagementdb
-      SPRING_DATASOURCE_USERNAME: employee
-      SPRING_DATASOURCE_PASSWORD: employee
-
-      INSTANCE_NAME: APP-2
-
+  # ==========================
+  # Nginx Load Balancer
+  # ==========================
   nginx:
     image: nginx:latest
     container_name: employee-nginx
-
     restart: always
 
     depends_on:
       - app1
-      - app2
 
     ports:
       - "80:80"
@@ -71,5 +117,19 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
+    networks:
+      - employee-network
+
+# ==========================
+# Volumes
+# ==========================
 volumes:
   mysql-data:
+  redis-data:
+
+# ==========================
+# Network
+# ==========================
+networks:
+  employee-network:
+    driver: bridge

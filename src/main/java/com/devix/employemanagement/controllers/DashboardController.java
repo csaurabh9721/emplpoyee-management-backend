@@ -22,4 +22,16 @@ public class DashboardController {
 
         return ResponseEntity.ok(new ApiResponse<>(200, "Data fetched successfully.", dashboardService.getDashboard(SecurityUtil.getCurrentEmployeeId())));
     }
+
+    @GetMapping("/dashboardDataRedis")
+    public ResponseEntity<ApiResponse<DashboardResponseDto>> getDashboardRedis() {
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Data fetched successfully.", dashboardService.getDashboardRedis(SecurityUtil.getCurrentEmployeeId())));
+    }
+
+    @GetMapping("/dashboardDataRedisDelete")
+    public ResponseEntity<ApiResponse<DashboardResponseDto>> getDashboardRedisDelete() {
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Data fetched successfully.", dashboardService.getDashboardRedisDeleted(SecurityUtil.getCurrentEmployeeId())));
+    }
 }
