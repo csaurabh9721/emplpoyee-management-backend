@@ -1,0 +1,111 @@
+version: "3.9"
+
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: employee-mysql
+    restart: always
+
+    environment:
+      MYSQL_DATABASE: employeemanagementdb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: employee
+      MYSQL_PASSWORD: employee
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app1:
+    build: .
+    container_name: employee-api-1
+    restart: always
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeemanagementdb
+      SPRING_DATASOURCE_USERNAME: employee
+      SPRING_DATASOURCE_PASSWORD: employee
+
+      INSTANCE_NAME: APP-1
+
+  app2:
+    build: .
+    container_name: employee-api-2
+    restart: always
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "8081:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeemanagementdb
+      SPRING_DATASOURCE_USERNAME: employee
+      SPRING_DATASOURCE_PASSWORD: employee
+
+      INSTANCE_NAME: APP-2
+
+  app3:
+    build: .
+    container_name: employee-api-3
+    restart: always
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "8082:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeemanagementdb
+      SPRING_DATASOURCE_USERNAME: employee
+      SPRING_DATASOURCE_PASSWORD: employee
+
+      INSTANCE_NAME: APP-3
+  app4:
+    build: .
+    container_name: employee-api-4
+    restart: always
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "8083:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeemanagementdb
+      SPRING_DATASOURCE_USERNAME: employee
+      SPRING_DATASOURCE_PASSWORD: employee
+
+      INSTANCE_NAME: APP-4
+  nginx:
+    image: nginx:latest
+    container_name: employee-nginx
+
+    restart: always
+
+    depends_on:
+      - app1
+      - app2
+      - app3
+      - app4
+
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  mysql-data:

@@ -24,7 +24,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().equals("/api/auth/**");
+
+        String uri = request.getRequestURI();
+
+        return uri.startsWith("/api/auth/")
+                || uri.startsWith("/swagger-ui/")
+                || uri.startsWith("/v3/api-docs")
+                || uri.startsWith("/testApi")
+                ;
     }
 
     @Override
@@ -65,9 +72,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     return;
                 }
             }
-        }else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
-            return;
         }
 
         filterChain.doFilter(request, response);

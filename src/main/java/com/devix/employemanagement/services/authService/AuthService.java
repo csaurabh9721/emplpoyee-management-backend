@@ -27,7 +27,7 @@ public class AuthService implements IAuthService {
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
         log.info("Login Request: {}", loginRequest);
-        User user = userRepository.findByEmail(loginRequest.getEmailId()).orElseThrow(() -> new ResourceNotFoundException("User not foundwewww"));
+        User user = userRepository.findByEmail(loginRequest.getEmailId()).orElseThrow(() -> new ResourceNotFoundException("User not found."));
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPasswordHash())) {
             throw new BadRequestException("Wrong password");
         }
